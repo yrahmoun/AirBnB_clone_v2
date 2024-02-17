@@ -132,8 +132,8 @@ class HBNBCommand(cmd.Cmd):
             params[pair[0]] = pair[1]
         new_instance = HBNBCommand.classes[class_name](**params)
         storage.new(new_instance)
-        storage.save()
         print(new_instance.id)
+        storage.save()
 
     def help_create(self):
         """ Help information for the create method """
@@ -220,9 +220,14 @@ class HBNBCommand(cmd.Cmd):
                     print_list.append(str(v))
         else:
             for k, v in storage._FileStorage__objects.items():
-                print_list.append(str(v))
-
-        print(print_list)
+                print_list.append(str(v)) 
+        obj_dict = {}
+        for obj_str in print_list:
+            obj_dict[obj_str.split(' ')[0][1:-1]] = obj_str
+        obj_list = []
+        for key in obj_dict:
+            obj_list.append(obj_dict[key])
+        print("[{}]".format(', '.join(obj_list)))
 
     def help_all(self):
         """ Help information for the all command """
