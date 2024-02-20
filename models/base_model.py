@@ -62,8 +62,8 @@ class BaseModel:
         dictionary['__class__'] = type(self).__name__
         dictionary['created_at'] = self.created_at.isoformat()
         dictionary['updated_at'] = self.updated_at.isoformat()
-        if "_sa_instance_state" in dictionary:
-            del dictionary["_sa_instance_state"]
+        if dictionary.get("_sa_instance_state"):
+            dictionary.pop("_sa_instance_state")
         return dictionary
 
     def delete(self):
